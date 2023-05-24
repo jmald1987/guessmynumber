@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width-device-width-initial-scale=1.0" />
-    <link type="text/css" rel="Stylesheet" href="stylesheet.css" />
+    <link type="text/css" rel="Stylesheet" href={{url_for('static', filename='stylesheet.css')}} />
     <title>Guess My Number</title>
   </head>
   <body>
@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="game-window" id="game-window">
-        <img id="status" src="images\thinker.png" alt="thinking" />
+        <img id="status" src= {{url_for('static', filename='images/thinker.png')}} alt="thinking" />
         <input
           id="userInput"
           class="input"
@@ -43,11 +43,21 @@
     <div class="modal-container" id="modal_container">
       <div class="modal">
         <h1>Guess My Number</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {%for category, messages in messages %}
+            <div class="{{category}}">
+              {{messages}}
+            </div>
+            {%endfor%}
+          
+          {% endif %}
+        {% endwith %}
         <p>Are you ready to play?</p>
         <button type="button" class="task-button" id="start">Yes</button>
         <button type="button" class="task-button" id="close">No</button>
       </div>
     </div>
-    <script src="script.js"></script>
+    <script src={{url_for('static', filename='script.js')}}></script>
   </body>
 </html>

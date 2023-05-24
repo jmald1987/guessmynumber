@@ -4,18 +4,13 @@
 const start = document.getElementById('start');
 /*Get the Modal Window*/
 const modal_container = document.getElementById('modal_container');
-/*Get the no button */
-const close = document.getElementById('close');
 
 /*When yes button is pressed, do this*/
 start.addEventListener('click',() => {
     modal_container.classList.add('close')
 });
+const wrong="{{url_for('static', filename='/game/static/images/wrong.png')}}";
 
-/*When no button is pressed, remove program*/
-close.addEventListener('click',() => {
-    document.getElementsByTagName ('html') [0] .remove ();
-});
 
 /* Starting guess the number game */
 
@@ -68,7 +63,8 @@ check.addEventListener('click',() => {
 
      catch(err) {
           game_msg.innerHTML = err;
-          stat_img.src='images/wrong.png';
+          stat_img.src=("{{url_for('static', filename='images/wrong.png')}}");
+          stat_img.alt="Try Again!";
           document.getElementById("userInput").value = "";
          if(duplicateElements.length!=0){
         game_msg.innerHTML = `You guessed this number! Please try a different one.`;
@@ -87,13 +83,16 @@ check.addEventListener('click',() => {
         }
         if(duplicateElements.length==0){
             attempt=attempt-1;}
-            highscore=score;
+            if(score>highscore){
+                highscore=score;
+            }
             document.getElementById("game-window").style.backgroundColor = 'lightsalmon';
             score=0;
             hscore_track.innerHTML=(`High Score: ${highscore}`)
             score_track.innerHTML=(`Score: ${score}`)
             tries.innerHTML=(`Attempt: ${attempt}`)
-            stat_img.src='images/wrong.png';
+            stat_img.src=("{{url_for('static',filename='/game/static/images/wrong.png')}}");
+            stat_img.alt="Try Again!";
       }
       /*If guessed high */
       if(user_input > winningNumber && user_input<101){
@@ -107,13 +106,16 @@ check.addEventListener('click',() => {
         if(duplicateElements.length==0){
             attempt=attempt-1;
         }
-        highscore=score;
+        if(score>highscore){
+            highscore=score;
+        }
         document.getElementById("game-window").style.backgroundColor = 'lightsalmon';
         score=0;
         hscore_track.innerHTML=(`High Score: ${highscore}`)
         score_track.innerHTML=(`Score: ${score}`)
         tries.innerHTML=(`Attempt: ${attempt}`)
-        stat_img.src='images/wrong.png';
+        stat_img.src=("{{url_for('static', filename='images/wrong.png')}}");
+        stat_img.alt="Try Again!";
       }
         /*If guessed right */
      if(user_input==winningNumber){
@@ -121,11 +123,15 @@ check.addEventListener('click',() => {
         document.getElementById("userInput").value = "";
         game_msg.innerHTML = `You guessed it! My number was ${winningNumber}`;
         score=score+1;
+        if(score>highscore){
+            highscore=score;
+        }
         document.getElementById("game-window").style.backgroundColor = 'lightgreen';
         score_track.innerHTML=(`Score: ${score}`)
         hscore_track.innerHTML=(`High Score: ${highscore}`)
         tries.innerHTML=(`Attempt: ${attempt}`)
-        stat_img.src='images/win.png';
+        stat_img.src=("{{url_for('static', filename='images/win.png')}}");
+        stat_img.alt="Correct!";
         winningNumber=Math.floor(Math.random() * 101)+1
         /*check the new winning number */
         console.log(winningNumber);
@@ -135,11 +141,16 @@ check.addEventListener('click',() => {
     if(attempt==0){
             document.getElementById("userInput").value = "";
             game_msg.innerHTML = (`Better luck next time. My number was ${winningNumber}. `);
+            if(score>highscore){
+                highscore=score;
+            }
             score=0;
             document.getElementById("game-window").style.backgroundColor = 'indianred';
             score_track.innerHTML=(`Score: ${score}`)
+            hscore_track.innerHTML=(`High Score: ${highscore}`)
             tries.innerHTML=(`Attempt: ${attempt}`)
-            stat_img.src='images/gameover.png';
+            stat_img.src=("{{url_for('static', filename='images/gameover.png')}}");
+            stat_img.alt="Sorry!";
             check.disabled=true;
             document.getElementById('userInput').disabled=true;
         }
@@ -154,8 +165,10 @@ check.addEventListener('click',() => {
         attempt=10;
         highscore=0;
         score=0
-        stat_img.src='images/thinker.png';
+        stat_img.src=("{{url_for('static', filename='images/thinker.png')}}");
+        stat_img.alt="Thinking..."
         score_track.innerHTML=(`Score: ${score}`)
+        hscore_track.innerHTML=(`High Score: ${highscore}`)
         tries.innerHTML=(`Attempt: ${attempt}`)
         winningNumber=Math.floor(Math.random() * 101)+1
         console.log(winningNumber)
