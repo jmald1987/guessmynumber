@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width-device-width-initial-scale=1.0" />
+    <link type="text/css" rel="Stylesheet" href="stylesheet.css" />
+    <title>Guess My Number</title>
+  </head>
+  <body>
+    <div class="header">
+      <h1 class="title">GUESS MY NUMBER</h1>
+      <p>Guess the number between 1 and 100</p>
+    </div>
+    <div class="game-container">
+      <div class="game-container-header">
+        <div class="score">
+          <strong><p id="try"></p></strong>
+          <strong><p id="Score"></p></strong>
+          <strong><p id="HighScore"></p></strong>
+        </div>
+        <div class="reset">
+          <button id="reset" type="button" class="reset-button">Reset</button>
+        </div>
+      </div>
+      <div class="game-window" id="game-window">
+        <img id="status" src="images\thinker.png" alt="thinking" />
+        <input
+          id="userInput"
+          class="input"
+          type="text"
+          placeholder="Guess a number"
+          pattern="[0-9]{3}"
+        />
+        <button type="button" class="check-button" id="check">Check</button>
+        <p class="game-window-footer" id="game_msg">Guess a number</p>
+      </div>
+      <div class="guess-history">
+        <p>Guess History</p>
+        <p class="guesses" id="guesses"></p>
+      </div>
+    </div>
+
+    <div class="modal-container" id="modal_container">
+      <div class="modal">
+        <h1>Guess My Number</h1>
+        <p>Are you ready to play?</p>
+        <button type="button" class="task-button" id="start">Yes</button>
+        <button type="button" class="task-button" id="close">No</button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
